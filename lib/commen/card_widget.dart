@@ -5,10 +5,16 @@ class CardWidget extends StatelessWidget {
   const CardWidget({
     super.key,
     required this.mainModel,
+    this.canClick = false, this.onTap, required this.width, required this.height
   });
 
   final MainModel? mainModel;
   final String haveNot = "Empty Value";
+  final bool canClick;
+  final Function()? onTap;
+  final double width;
+  final double height;
+
 
   @override
   Widget build(BuildContext context) {
@@ -17,19 +23,22 @@ class CardWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: MediaQuery.of(context).size.width / 2,
-          height: MediaQuery.of(context).size.width / 2,
-          child: Card(
-              color: Colors.white,
-              shape: RoundedRectangleBorder(
-                side: const BorderSide(color: Colors.white70, width: 1),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              margin: const EdgeInsets.all(10.0),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: ImageWidget(mainModel: mainModel),
-              )),
+          width: width,
+          height: height,
+          child: InkWell(
+            onTap: canClick ? onTap : null,
+            child: Card(
+                color: Colors.white,
+                shape: RoundedRectangleBorder(
+                  side: const BorderSide(color: Colors.white70, width: 1),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                margin: const EdgeInsets.all(10.0),
+                child: Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: ImageWidget(mainModel: mainModel),
+                )),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.only(left: 18.0, right: 18.0),
