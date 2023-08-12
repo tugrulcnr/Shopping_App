@@ -1,31 +1,40 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:storeapp/mainPage/model/main_model.dart';
 import 'package:storeapp/mainPage/service/main_service.dart';
-import 'package:storeapp/mainPage/view/main_view.dart';
 
-abstract class MainViewModel extends State<MainView> {
-  late final MainService mainService;
-  late List<MainModel>? mainModel = [];
-  late bool isLoaded = true;
-  late List<String> catagoryNames = [];
+class MainViewModel extends ChangeNotifier {
+  final MainService mainService = MainService();
+  List<MainModel>? mainModel = [];
 
-  @override
-  void initState() {
-    super.initState();
-    mainService = MainService();
+  bool isLoaded = true;
+  List<String> catagoryNames = [];
+
+  MainViewModel() {
     fetchData().whenComplete(() => addNameToList(mainModel));
+  }
+
+   int selectedIndex = 0;
+
+   
+  void onItemTapped(int index) {
+     selectedIndex = index;
+     notifyListeners();
     
   }
+
 
   Future<void> fetchData() async {
     changeLoadingValue();
     mainModel = await mainService.getData() ?? [];
     changeLoadingValue();
-    setState(() {});
+    notifyListeners();
   }
 
   void changeLoadingValue() {
     isLoaded = !isLoaded;
+    notifyListeners();
   }
 
   void addNameToList(List<MainModel>? mainModel) {
