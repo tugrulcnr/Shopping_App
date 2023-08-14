@@ -24,14 +24,12 @@ class _CartViewState extends State<CartView> {
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: value.mainModelList[index].image != null
-                    ? Stack(
-                      alignment: Alignment.topRight,
-                      children:[
+                    ? Stack(alignment: Alignment.topRight, children: [
                         InkWell(
-                          onTap: () {
-                            value.removeMainModel(index);
-                          },
-                          child: Icon(Icons.delete)),
+                            onTap: () {
+                              value.removeMainModel(index);
+                            },
+                            child: Icon(Icons.delete)),
                         Row(
                           children: [
                             SizedBox(
@@ -43,31 +41,35 @@ class _CartViewState extends State<CartView> {
                                 )),
                             Expanded(
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 crossAxisAlignment: CrossAxisAlignment.end,
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.only(right: 30),
                                     child: Text(
-                                      value.mainModelList[index].title.toString(),
+                                      value.mainModelList[index].title
+                                          .toString(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
-                                  SizedBox(
-                                    height: 50,
-                    
-                                  ),
-                                  Text(value.mainModelList[index].price
-                                          .toString() 
-                                     ),
                                 ],
                               ),
-                            )
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Container(
+                                  child: Text(value.mainModelList[index].price
+                                      .toString()),
+                                ),
+                                
+                              ],
+                            ),
                           ],
                         ),
-                      ] 
-                    )
+                      ])
                     : CircularProgressIndicator(),
               ),
             );
